@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @Rollback
-class PersonControllerIT extends AbstractTestContainerIT {
+class UserControllerIT extends AbstractTestContainerIT {
 
     @Autowired
     private MockMvc mockMvc;
@@ -44,7 +44,7 @@ class PersonControllerIT extends AbstractTestContainerIT {
 
     @Nested
     @DisplayName("Test method getUser")
-    public class TestMethodGetPerson {
+    public class TestMethodGetUser {
         @Test
         @DisplayName("Should get the user when user exist")
         public void shouldGetTheUserWhenUserExist() throws Exception {

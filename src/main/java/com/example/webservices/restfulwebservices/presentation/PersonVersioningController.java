@@ -23,49 +23,49 @@ public class PersonVersioningController {
 
     // Request params versioning
 
-    @GetMapping(path ="/params", params = "version=1")
+    @GetMapping(path = "/params", params = "version=1")
     public PersonV1 getPersonRequestParamsV1() {
         return new PersonV1("John Doe");
     }
 
-    @GetMapping(path ="/params", params = "version=2")
+    @GetMapping(path = "/params", params = "version=2")
     public PersonV2 getPersonRequestParamsV2() {
         return new PersonV2("John", "Doe");
     }
 
     // Header versioning
 
-    @GetMapping(path ="headers", headers = "X-API-VERSION=1")
+    @GetMapping(path = "headers", headers = "X-API-VERSION=1")
     public PersonV1 getPersonHeaderV1() {
         return new PersonV1("John Doe");
     }
 
-    @GetMapping(path ="headers", headers = "X-API-VERSION=2")
+    @GetMapping(path = "headers", headers = "X-API-VERSION=2")
     public PersonV2 getPersonHeaderV2() {
         return new PersonV2("John", "Doe");
     }
 
     // Media type versioning
 
-    @GetMapping(path ="accept", produces = "application/vnd.company.app-v1+json")
+    @GetMapping(path = "accept", produces = "application/vnd.company.app-v1+json")
     public PersonV1 getPersonAcceptV1() {
         return new PersonV1("John Doe");
     }
 
-    @GetMapping(path ="accept", produces = "application/vnd.company.app-v2+json")
+    @GetMapping(path = "accept", produces = "application/vnd.company.app-v2+json")
     public PersonV2 getPersonAcceptV2() {
         return new PersonV2("John", "Doe");
     }
 
     @AllArgsConstructor
     @Data
-    private class PersonV1 {
+    private static class PersonV1 {
         private String name;
     }
 
     @AllArgsConstructor
     @Data
-    private class PersonV2 {
+    private static class PersonV2 {
         private String firstname;
         private String lastname;
     }

@@ -1,2 +1,2 @@
 docker compose down -v
-docker compose up db --force-recreate --build
+docker compose up db --force-recreate

@@ -14,8 +14,8 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
 @Builder
-@Entity
-public class Person {
+@Entity(name = "person")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

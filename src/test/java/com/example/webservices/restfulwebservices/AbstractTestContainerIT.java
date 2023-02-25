@@ -25,7 +25,8 @@ public abstract class AbstractTestContainerIT {
         db.start();
 
         JdbcDatabaseDelegate jdbcDatabaseDelegate = new JdbcDatabaseDelegate(db, "");
-        ScriptUtils.runInitScript(jdbcDatabaseDelegate, "data/people.sql");
+        ScriptUtils.runInitScript(jdbcDatabaseDelegate, "data/users.sql");
+        ScriptUtils.runInitScript(jdbcDatabaseDelegate, "data/posts.sql");
     }
 
     static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {

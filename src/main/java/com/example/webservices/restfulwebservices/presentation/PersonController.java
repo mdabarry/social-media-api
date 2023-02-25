@@ -1,14 +1,12 @@
 package com.example.webservices.restfulwebservices.presentation;
 
-import com.example.webservices.restfulwebservices.dto.PersonMapper;
-import com.example.webservices.restfulwebservices.dto.PersonRequestDto;
-import com.example.webservices.restfulwebservices.dto.PersonResponseDto;
-import com.example.webservices.restfulwebservices.model.Person;
-import com.example.webservices.restfulwebservices.service.PersonService;
+import com.example.webservices.restfulwebservices.dto.user.UserMapper;
+import com.example.webservices.restfulwebservices.dto.user.UserRequestDto;
+import com.example.webservices.restfulwebservices.dto.user.UserResponseDto;
+import com.example.webservices.restfulwebservices.model.User;
+import com.example.webservices.restfulwebservices.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,51 +14,41 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/people")
+@RequestMapping("/users")
 public class PersonController {
-    private final PersonService personService;
-    private final PersonMapper personMapper;
-
-    private final MessageSource messageSource;
+    private final UserService userService;
+    private final UserMapper userMapper;
 
     @GetMapping
-    public List<PersonResponseDto> getAllPeople() {
-        return personService.getAllPeople().stream().map(personMapper::toPersonResponseDto).toList();
+    public List<UserResponseDto> getAllUsers() {
+        return userService.getAllUsers().stream().map(userMapper::toUserResponseDto).toList();
     }
 
     @GetMapping("/{id}")
-    public PersonResponseDto getPerson(@PathVariable(name = "id") UUID personId) {
-        return personMapper.toPersonResponseDto(personService.getPersonById(personId));
+    public UserResponseDto getPerson(@PathVariable(name = "id") UUID userId) {
+        return userMapper.toUserResponseDto(userService.getUserById(userId));
     }
 
     @PostMapping
-    public ResponseEntity<Void> createNewPerson(@Valid @RequestBody PersonRequestDto personDto) {
-        Person person = personService.createNewPerson(personMapper.fromPersonRequestDto(personDto));
+    public ResponseEntity<Void> createNewUser(@Valid @RequestBody UserRequestDto personDto) {
+        User user = userService.createNewUser(userMapper.fromPersonRequestDto(personDto));
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(person.getId())
+                .buildAndExpand(user.getId())
                 .toUri();
 
         return ResponseEntity.created(location).build();
     }
 
-
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePerson(@PathVariable(name = "id") UUID personId) {
-        personService.deletePersonById(personId);
-    }
-
-    @GetMapping("/i18n")
-    public String helloWorld() {
-        Locale locale = LocaleContextHolder.getLocale();
-        return messageSource.getMessage("good.morning.message", null, locale);
+        userService.deleteUserById(personId);
     }
 
 }

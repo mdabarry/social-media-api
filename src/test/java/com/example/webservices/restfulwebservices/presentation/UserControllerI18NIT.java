@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PersonControllerI18NIT {
+public class UserControllerI18NIT {
     @Autowired
     private MockMvc mockMvc;
 
@@ -36,7 +36,7 @@ public class PersonControllerI18NIT {
     @DisplayName("Test i18n hello world")
     public void testI18nHelloWorld(Locale locale, String message) throws Exception {
 
-        String content = mockMvc.perform(MockMvcRequestBuilders.get("/users/i18n").locale(locale))
+        String content = mockMvc.perform(MockMvcRequestBuilders.get("/i18n").locale(locale))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn()
@@ -45,6 +45,4 @@ public class PersonControllerI18NIT {
 
         assertThat(content).isEqualTo(message);
     }
-
-
 }
