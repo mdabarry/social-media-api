@@ -7,6 +7,8 @@ import com.example.webservices.restfulwebservices.model.User;
 import com.example.webservices.restfulwebservices.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -22,6 +25,8 @@ import java.util.UUID;
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
+
+    private final MessageSource messageSource;
 
     @GetMapping
     public List<UserResponseDto> getAllUsers() {
@@ -51,4 +56,11 @@ public class UserController {
     public void deleteUser(@PathVariable(name = "id") UUID userId) {
         userService.deleteUserById(userId);
     }
+
+    @GetMapping("/i18n")
+    public String helloWorld() {
+        Locale locale = LocaleContextHolder.getLocale();
+        return messageSource.getMessage("good.morning.message", null, locale);
+    }
+
 }
