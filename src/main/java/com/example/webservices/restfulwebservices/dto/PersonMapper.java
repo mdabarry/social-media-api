@@ -1,16 +1,16 @@
 package com.example.webservices.restfulwebservices.dto;
 
-import com.example.webservices.restfulwebservices.model.User;
+import com.example.webservices.restfulwebservices.model.Person;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserMapper {
+public class PersonMapper {
 
-    public User fromUserRequestDto(UserRequestDto userCreateRequestDto) {
-        return User.builder().name(userCreateRequestDto.name()).birthDate(userCreateRequestDto.birthDate()).build();
+    public Person fromPersonRequestDto(PersonRequestDto personRequestDto) {
+        return Person.builder().name(personRequestDto.name()).birthDate(personRequestDto.birthDate()).build();
     }
 
-    public UserResponseDto toUserResponseDto(User user) {
-        return new UserResponseDto(user.getId(), user.getName(), user.getBirthDate());
+    public PersonResponseDto toPersonResponseDto(Person person) {
+        return new PersonResponseDto(person.getId(), person.getName(), person.getBirthDate());
     }
 }

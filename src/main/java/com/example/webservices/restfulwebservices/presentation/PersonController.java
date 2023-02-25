@@ -1,10 +1,10 @@
 package com.example.webservices.restfulwebservices.presentation;
 
-import com.example.webservices.restfulwebservices.dto.UserMapper;
-import com.example.webservices.restfulwebservices.dto.UserRequestDto;
-import com.example.webservices.restfulwebservices.dto.UserResponseDto;
-import com.example.webservices.restfulwebservices.model.User;
-import com.example.webservices.restfulwebservices.service.UserService;
+import com.example.webservices.restfulwebservices.dto.PersonMapper;
+import com.example.webservices.restfulwebservices.dto.PersonRequestDto;
+import com.example.webservices.restfulwebservices.dto.PersonResponseDto;
+import com.example.webservices.restfulwebservices.model.Person;
+import com.example.webservices.restfulwebservices.service.PersonService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -21,30 +21,30 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/users")
-public class UserController {
-    private final UserService userService;
-    private final UserMapper userMapper;
+@RequestMapping("/people")
+public class PersonController {
+    private final PersonService personService;
+    private final PersonMapper personMapper;
 
     private final MessageSource messageSource;
 
     @GetMapping
-    public List<UserResponseDto> getAllUsers() {
-        return userService.getAllUsers().stream().map(userMapper::toUserResponseDto).toList();
+    public List<PersonResponseDto> getAllPeople() {
+        return personService.getAllPeople().stream().map(personMapper::toPersonResponseDto).toList();
     }
 
     @GetMapping("/{id}")
-    public UserResponseDto getUser(@PathVariable(name = "id") UUID userId) {
-        return userMapper.toUserResponseDto(userService.getUserById(userId));
+    public PersonResponseDto getPerson(@PathVariable(name = "id") UUID personId) {
+        return personMapper.toPersonResponseDto(personService.getPersonById(personId));
     }
 
     @PostMapping
-    public ResponseEntity<Void> createNewUser(@Valid @RequestBody UserRequestDto userDto) {
-        User user = userService.createNewUser(userMapper.fromUserRequestDto(userDto));
+    public ResponseEntity<Void> createNewPerson(@Valid @RequestBody PersonRequestDto personDto) {
+        Person person = personService.createNewPerson(personMapper.fromPersonRequestDto(personDto));
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(user.getId())
+                .buildAndExpand(person.getId())
                 .toUri();
 
         return ResponseEntity.created(location).build();
@@ -53,8 +53,8 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable(name = "id") UUID userId) {
-        userService.deleteUserById(userId);
+    public void deletePerson(@PathVariable(name = "id") UUID personId) {
+        personService.deletePersonById(personId);
     }
 
     @GetMapping("/i18n")

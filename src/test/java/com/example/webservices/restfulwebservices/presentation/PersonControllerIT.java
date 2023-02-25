@@ -23,18 +23,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @Rollback
-class UserControllerIT extends AbstractTestContainerIT {
+class PersonControllerIT extends AbstractTestContainerIT {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Nested
-    @DisplayName("Test method getAllUsers")
-    public class TestMethodGetAllUsers {
+    @DisplayName("Test method getAllPeople")
+    public class TestMethodGetAllPeople {
 
         @Test
-        @DisplayName("Should get all users")
-        public void shouldGetAllUsers() throws Exception {
+        @DisplayName("Should get all people")
+        public void shouldGetAllPeople() throws Exception {
             mockMvc.perform(MockMvcRequestBuilders.get("/users"))
                     .andDo(print())
                     .andExpectAll(jsonPath("$.length()", Matchers.is(5)), status().isOk());
@@ -44,7 +44,7 @@ class UserControllerIT extends AbstractTestContainerIT {
 
     @Nested
     @DisplayName("Test method getUser")
-    public class TestMethodGetUser {
+    public class TestMethodGetPerson {
         @Test
         @DisplayName("Should get the user when user exist")
         public void shouldGetTheUserWhenUserExist() throws Exception {

@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserControllerI18nIT {
+public class PersonControllerI18NIT {
     @Autowired
     private MockMvc mockMvc;
 
